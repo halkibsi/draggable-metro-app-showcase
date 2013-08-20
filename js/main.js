@@ -13,6 +13,7 @@
         focusButton = document.getElementById('as-focus-button'),
         leftNavButton = document.getElementById('as-left-nav-button'),
         rightNavButton = document.getElementById('as-right-nav-button'),
+        tip = document.getElementById('as-instructions'),
         container = el.parentNode;
 
     scrollInButton.addEventListener('click', function(){
@@ -30,6 +31,7 @@
     var focus = false;
 
     function focusFrame(){
+        hideTip();
         if(focus == false){
             container.classList.add('shrink');
             focus = true;
@@ -43,7 +45,12 @@
         }
     }
 
+    function hideTip(){
+        tip.style.display= "none";
+    }
+
     function scrollScreen(val, dir){
+        hideTip();
         var left = el.offsetLeft;
 
         if(dir == 'left'){
@@ -86,6 +93,7 @@
     el.addEventListener("touchstart", startDrag, false);
 
     function startDrag( event ) {
+        hideTip();
         //prevent contents of the screen from being selected in Opera and IE <= 10 by adding the unselectable attribute
         el.setAttribute('unselectable', 'on');
 
@@ -130,9 +138,11 @@
 
     var scrollLeftOnSwipe = Hammer(el).on("swipeleft", function(event) {
         scrollScreen(220, 'left');
+        hideTip();
     });
     var scrollRightOnSwipe = Hammer(el).on("swiperight", function(event) {
         scrollScreen(220, 'right');
+        hideTip();
     });
 
 
